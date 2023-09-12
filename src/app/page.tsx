@@ -4,10 +4,8 @@ import { CapsuleDataTable } from "@/components/CapsulesTable";
 import { columns } from "@/components/Columns";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import Rockets from "@/components/Rockets";
 import { CapsuleContext, CapsuleProvider } from "@/context/capsules";
 import { FiltersContext, FiltersProvider } from "@/context/filters";
-import { RocketProvider } from "@/context/rocket";
 import { useContext } from "react";
 
 export default function Home() {
@@ -19,8 +17,6 @@ export default function Home() {
     <>
       <Header />
       <Hero />
-      <Rockets/>
-
       <Capsules
         capsules={
           selectedStatus === "all"
@@ -40,7 +36,8 @@ export default function Home() {
             ? capsules
             : capsules.filter((item) => {
                 return (
-                  (selectedStatus.includes(item.status) ||selectedStatus === "all") &&
+                  (selectedStatus.includes(item.status) ||
+                    selectedStatus === "all") &&
                   (selectedType.includes(item.type) || selectedType === "all")
                 );
               })
