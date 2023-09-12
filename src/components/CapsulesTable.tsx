@@ -63,7 +63,7 @@ export function CapsuleDataTable({ data, columns }: CapsulesProps) {
   // console.log(table.getAllColumns())
 
   return (
-    <section className="w-full my-8 m-auto flex flex-col items-center max-w-screen-xl justify-center">
+    <section className="w-full my-8 m-auto flex flex-col items-center max-w-screen-xl justify-center p-3">
       <SectionHead title="Capsules Data" />
       <div className="flex items-center flex-wrap gap-y-2 py-4">
         <div className="flex w-full gap-2 items-center">
@@ -81,7 +81,7 @@ export function CapsuleDataTable({ data, columns }: CapsulesProps) {
           <TypeFilters />
         </div>
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border max-w-webkit-fill-available">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

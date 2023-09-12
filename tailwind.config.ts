@@ -80,7 +80,11 @@ const config: Config = {
         '6000': '6000ms',
       },
       height:{
-        '800':'800px'
+        '800':'800px',
+        'webkit-fill-available':'-webkit-fill-available'
+      },
+      maxWidth:{
+        'webkit-fill-available':'-webkit-fill-available'
       }
     },
   },
