@@ -12,7 +12,8 @@ export default function Hero() {
           Your Gateway to the Future of Space Travel
         </span>
         <span className="text-white text-lg w-3/4">
-          Explore the marvels of SpaceX's cutting-edge rockets and capsules.
+          Explore the marvels of SpaceX&apos;s cutting-edge rockets and
+          capsules.
           <br />
           From the mighty Falcon 9 to the state-of-the-art Crew Dragon, <br />
           embark on a journey through the world of space exploration.
