@@ -4,11 +4,11 @@ import { MoreHorizontal, ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export type TableColumn = {
-    accessorKey: string;
-    header: ((params: { column: any }) => React.ReactNode) | string;
-  };
+  accessorKey: string;
+  header: ((params: { column: any }) => React.ReactNode) | string;
+};
 
-export const columns: TableColumn[]=[
+export const columns: TableColumn[] = [
   {
     accessorKey: "capsule_serial",
     header: "Capsule Serial",
@@ -16,6 +16,10 @@ export const columns: TableColumn[]=[
   {
     accessorKey: "capsule_id",
     header: "Capsule ID",
+  },
+  {
+    accessorKey: "status",
+    header: "Capsule status",
   },
   {
     accessorKey: "original_launch",

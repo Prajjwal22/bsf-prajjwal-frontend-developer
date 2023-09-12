@@ -13,9 +13,8 @@ import { useContext } from "react";
 export default function Home() {
   const { capsules } = useContext(CapsuleContext);
 
-  const { selectedStatus } = useContext(FiltersContext);
+  const { selectedStatus, selectedType } = useContext(FiltersContext);
 
-  console.log(selectedStatus);
   return (
     <>
       <Header />
@@ -34,16 +33,20 @@ export default function Home() {
               })
         }
       />
-      <CapsuleDataTable columns={columns}  data={
-          selectedStatus === "all"
+      <CapsuleDataTable
+        columns={columns}
+        data={
+          selectedStatus === "all" && selectedType === "all"
             ? capsules
             : capsules.filter((item) => {
                 return (
-                  selectedStatus.includes(item.status) ||
-                  selectedStatus === "all"
+                  (selectedStatus.includes(item.status) ||
+                    selectedStatus === "all") &&
+                  (selectedType.includes(item.type) || selectedType === "all")
                 );
               })
-        }/>
+        }
+      />
     </>
   );
 }

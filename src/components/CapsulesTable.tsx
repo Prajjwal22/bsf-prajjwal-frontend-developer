@@ -25,21 +25,25 @@ import SectionHead from "./SectionHead";
 import { Capsule } from "@/context/capsules";
 import { DataTablePagination } from "./DataTablePagination";
 import { TableColumn } from "./Columns";
-
-
+import TypeFilters from "./TypeFilters";
 
 type CapsulesProps = {
   data: Capsule[];
   columns: TableColumn[];
 };
 
-export function CapsuleDataTable({ data, columns }: CapsulesProps) {
-  const [sorting, setSorting] = useState([]);
-  const [columnFilters, setColumnFilters] = useState([]);
-  const [columnVisibility, setColumnVisibility] = useState({});
-  const [rowSelection, setRowSelection] = useState({});
+type SortingState = {
+  columnId: string;
+  direction: "asc" | "desc" | undefined;
+};
 
-  const [filteredTable, setFilteredTable] = useState();
+export function CapsuleDataTable({ data, columns }: CapsulesProps) {
+  const [sorting, setSorting] = useState<SortingState[]>([]);
+  const [columnFilters, setColumnFilters] = useState<any[]>([]);
+  const [columnVisibility, setColumnVisibility] = useState<
+    Record<string, boolean>
+  >({});
+  const [rowSelection, setRowSelection] = useState<Record<string, any>>({});
 
   console.log("DataTable", data);
 
@@ -48,12 +52,13 @@ export function CapsuleDataTable({ data, columns }: CapsulesProps) {
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    onSortingChange: setSorting,
+    onSortingChange: (newSorting) => setSorting(newSorting), // Update sorting state
     getSortedRowModel: getSortedRowModel(),
-    onColumnFiltersChange: setColumnFilters,
+    onColumnFiltersChange: (newFilters) => setColumnFilters(newFilters), // Update columnFilters state
     getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
+    onColumnVisibilityChange: (newVisibility) =>
+      setColumnVisibility(newVisibility), // Update columnVisibility state
+    onRowSelectionChange: (newSelection) => setRowSelection(newSelection), // Update rowSelection state
     state: {
       sorting,
       columnFilters,
@@ -80,6 +85,7 @@ export function CapsuleDataTable({ data, columns }: CapsulesProps) {
             className="max-w-xs shadow-sm"
           />
           <StatusFilters />
+          <TypeFilters />
         </div>
       </div>
       <div className="rounded-md border">
@@ -125,29 +131,13 @@ export function CapsuleDataTable({ data, columns }: CapsulesProps) {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  {table.getRowModel().rows?.length < 0 ? "Loading..." : "No Results"}
+                  {table.getRowModel().rows?.length < 0
+                    ? "Loading..."
+                    : "No Results"}
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
-          <TableFooter className="bg-gray-100 font-bold text-md">
-            {table.getFooterGroups().map((footergroup) => (
-              <TableRow key={footergroup.id}>
-                {footergroup.headers.map((footer) => {
-                  return (
-                    <TableHead key={footer.id}>
-                      {footer.isPlaceholder
-                        ? null
-                        : flexRender(
-                            footer.column.columnDef.footer,
-                            footer.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableFooter>
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
