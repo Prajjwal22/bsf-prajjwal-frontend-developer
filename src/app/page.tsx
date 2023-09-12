@@ -19,7 +19,7 @@ export default function Home() {
     <>
       <Header />
       <Hero />
-      {/* <Rockets/> */}
+      <Rockets/>
 
       <Capsules
         capsules={
@@ -40,8 +40,7 @@ export default function Home() {
             ? capsules
             : capsules.filter((item) => {
                 return (
-                  (selectedStatus.includes(item.status) ||
-                    selectedStatus === "all") &&
+                  (selectedStatus.includes(item.status) ||selectedStatus === "all") &&
                   (selectedType.includes(item.type) || selectedType === "all")
                 );
               })

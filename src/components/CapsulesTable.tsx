@@ -32,17 +32,12 @@ type CapsulesProps = {
   columns: TableColumn[];
 };
 
-type SortingState = {
-  columnId: string;
-  direction: "asc" | "desc" | undefined;
-};
 
 export function CapsuleDataTable({ data, columns }: CapsulesProps) {
-  const [sorting, setSorting] = useState<SortingState[]>([]);
   const [columnFilters, setColumnFilters] = useState<any[]>([]);
-  const [columnVisibility, setColumnVisibility] = useState<
-    Record<string, boolean>
-  >({});
+  const [columnVisibility, setColumnVisibility] = useState<Record<string, boolean>>(
+    {}
+  );
   const [rowSelection, setRowSelection] = useState<Record<string, any>>({});
 
   console.log("DataTable", data);
@@ -52,7 +47,6 @@ export function CapsuleDataTable({ data, columns }: CapsulesProps) {
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    onSortingChange: (newSorting) => setSorting(newSorting), // Update sorting state
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: (newFilters) => setColumnFilters(newFilters), // Update columnFilters state
     getFilteredRowModel: getFilteredRowModel(),
@@ -60,7 +54,6 @@ export function CapsuleDataTable({ data, columns }: CapsulesProps) {
       setColumnVisibility(newVisibility), // Update columnVisibility state
     onRowSelectionChange: (newSelection) => setRowSelection(newSelection), // Update rowSelection state
     state: {
-      sorting,
       columnFilters,
       columnVisibility,
       rowSelection,
@@ -76,7 +69,7 @@ export function CapsuleDataTable({ data, columns }: CapsulesProps) {
         <div className="flex w-full gap-2 items-center">
           <Input
             placeholder="Search capsule serial..."
-            value={table.getColumn("capsule_serial")?.getFilterValue() ?? ""}
+            value={(table.getColumn("capsule_serial")?.getFilterValue() || "") as string}
             onChange={(event) =>
               table
                 .getColumn("capsule_serial")
@@ -141,7 +134,7 @@ export function CapsuleDataTable({ data, columns }: CapsulesProps) {
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <DataTablePagination capsules={table} />
+        <DataTablePagination table={table} />
       </div>
     </section>
   );
