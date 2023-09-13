@@ -6,9 +6,34 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import { CapsuleContext, CapsuleProvider } from "@/context/capsules";
 import { FiltersContext, FiltersProvider } from "@/context/filters";
-import { useContext } from "react";
+import { useContext,useEffect, useState } from "react";
 
 export default function Home() {
+
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    const fetchSpaceXData = async () => {
+      try {
+        const response = await fetch('https://api.howtoshout.com/spacex.php', {
+          headers: {
+            'API_KEY': 'QWERTY',
+          },
+          
+        });
+        console.log("fsdsfsa")
+        const fetchedData = await response.json();
+        console.log(response)
+        setData(fetchedData); // Corrected this line
+      } catch (err) {
+        console.error("Error fetching SpaceX data:", err);
+      }
+    };
+
+    fetchSpaceXData();
+  }, []);
+
+console.log("prajjwal",data)
   const { capsules } = useContext(CapsuleContext);
 
   const { selectedStatus, selectedType } = useContext(FiltersContext);
