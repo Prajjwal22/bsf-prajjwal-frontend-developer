@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
+
 $response = file_get_contents($spaceXApiUrl);
 
 if ($response === false) {
