@@ -40,7 +40,6 @@ export function CapsuleDataTable({ data, columns }: CapsulesProps) {
   );
   const [rowSelection, setRowSelection] = useState<Record<string, any>>({});
 
-  console.log("DataTable", data);
 
   const table = useReactTable({
     data,

@@ -1,7 +1,14 @@
-'use client'
+"use client";
 
-import { fetchRockets } from '@/lib/rockets';
-import { Dispatch, ReactNode, SetStateAction, createContext, useEffect, useState } from 'react';
+import { fetchRockets } from "@/lib/data";
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useEffect,
+  useState,
+} from "react";
 
 type RocketProviderProps = {
   children: ReactNode;
@@ -13,17 +20,17 @@ export type Rocket = {
   rocket_id: string;
   description: string;
   id: number;
-  active: boolean; 
+  active: boolean;
   country: string;
   company: string;
-  height :{
+  height: {
     feet: number;
     meters: number;
-  },
-  diameter :{
+  };
+  diameter: {
     feet: number;
     meters: number;
-  }
+  };
 };
 
 interface RocketContextInterface {

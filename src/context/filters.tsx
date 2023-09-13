@@ -1,5 +1,5 @@
 "use client";
-import { fetchCapsules } from "@/lib/rockets";
+import { fetchCapsules } from "@/lib/data";
 import {
   Dispatch,
   ReactNode,

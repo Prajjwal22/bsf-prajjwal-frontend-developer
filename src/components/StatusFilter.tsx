@@ -30,7 +30,6 @@ import { FiltersContext, Status } from "@/context/filters";
 
 export default function StatusFilters() {
   const { setSelectedStatus, statusList } = useContext(FiltersContext);
-  console.log(statusList);
   const [filtered, setFiltered] = useState<Status[]>([]);
 
   const handleStatus = (selectedStatus: Status) => {
@@ -63,7 +62,7 @@ export default function StatusFilters() {
       <PopoverTrigger asChild>
         <Button variant="outline" className="h-9 border-dashed shadow-sm">
           <PlusCircleIcon className="mr-2 h-4 w-4" />
-          Satus
+          Status
         </Button>
       </PopoverTrigger>
       {filtered.length > 0 && (

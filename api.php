@@ -1,5 +1,4 @@
 <?php
-// Check if the API key is provided in the request header
 $apiKey = $_SERVER['HTTP_API_KEY'] ?? null;
 
 if ($apiKey !== 'QWERTY') {
@@ -8,21 +7,17 @@ if ($apiKey !== 'QWERTY') {
     exit;
 }
 
-// SpaceX API URL
 $spaceXApiUrl = 'https://api.spacexdata.com/v3/capsules';
 
-// Set CORS headers to allow requests from http://localhost:8080/
-header('Access-Control-Allow-Origin: http://localhost:8080');
+header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, OPTIONS'); // Include OPTIONS method
 header('Access-Control-Allow-Headers: API_KEY, Content-Type');
 
-// If it's an OPTIONS request, respond with appropriate headers and exit
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200); // OK
     exit;
 }
 
-// Fetch data from SpaceX API
 $response = file_get_contents($spaceXApiUrl);
 
 if ($response === false) {
@@ -31,6 +26,5 @@ if ($response === false) {
     exit;
 }
 
-// Set response headers and return the data
 header('Content-Type: application/json');
 echo $response;

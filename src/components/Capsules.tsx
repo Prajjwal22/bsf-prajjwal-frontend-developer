@@ -1,7 +1,7 @@
 "use client";
 
 import { Rocket, RocketContext } from "@/context/rocket";
-import { fetchRockets } from "@/lib/rockets";
+import { fetchRockets } from "@/lib/data";
 import React, { useContext, useState, useEffect } from "react";
 import {
   Card,

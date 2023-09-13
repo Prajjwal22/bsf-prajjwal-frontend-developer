@@ -1,6 +1,6 @@
 "use client";
 
-import { fetchCapsules, fetchRockets } from "@/lib/rockets";
+import { fetchCapsules, fetchRockets } from "@/lib/data";
 import {
   Dispatch,
   ReactNode,
@@ -44,7 +44,6 @@ export function CapsuleProvider({ children }: CapsuleProviderProps) {
   const fetchMyOffers = async () => {
     setLoading(true);
     const allCapsules = await fetchCapsules();
-    console.log(allCapsules)
     setCapsules(allCapsules);
     setLoading(false);
   };
