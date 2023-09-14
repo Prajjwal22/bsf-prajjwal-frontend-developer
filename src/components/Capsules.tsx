@@ -41,7 +41,7 @@ export default function Capsules({ capsules }: CapsuleProps) {
   //   };
 
   return (
-    <section className="w-full my-8 m-auto flex flex-col items-center max-w-screen-xl justify-center p-3">
+    <section id="capsule_grid" className="w-full my-8 m-auto flex flex-col items-center max-w-screen-xl justify-center p-3">
       <SectionHead title="All Capsules" />
       <StatusFilters />
       {/* <input

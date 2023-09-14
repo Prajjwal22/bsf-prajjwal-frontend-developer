@@ -2,46 +2,67 @@
 import Capsules from "@/components/Capsules";
 import { CapsuleDataTable } from "@/components/CapsulesTable";
 import { columns } from "@/components/Columns";
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import { CapsuleContext, CapsuleProvider } from "@/context/capsules";
-import { FiltersContext, FiltersProvider } from "@/context/filters";
-import { useContext,useEffect, useState } from "react";
+import { CapsuleContext } from "@/context/capsules";
+import { FiltersContext } from "@/context/filters";
+import { useContext } from "react";
 
 export default function Home() {
+  //   const [data, setData] = useState();
 
-//   const [data, setData] = useState();
+  //   useEffect(() => {
+  //     const fetchSpaceXData = async () => {
+  //       try {
+  //         const response = await fetch('http://localhost:3000/api.php', {
+  //           headers: {
+  //             'API_KEY': 'QWERTY',
+  //           },
 
-//   useEffect(() => {
-//     const fetchSpaceXData = async () => {
-//       try {
-//         const response = await fetch('http://localhost:3000/api.php', {
-//           headers: {
-//             'API_KEY': 'QWERTY',
-//           },
-          
-//         });
-//         console.log("fsdsfsa")
-//         const fetchedData = await response.json();
-//         console.log(response)
-//         setData(fetchedData); // Corrected this line
-//       } catch (err) {
-//         console.error("Error fetching SpaceX data:", err);
-//       }
-//     };
+  //         });
+  //         console.log("fsdsfsa")
+  //         const fetchedData = await response.json();
+  //         console.log(response)
+  //         setData(fetchedData); // Corrected this line
+  //       } catch (err) {
+  //         console.error("Error fetching SpaceX data:", err);
+  //       }
+  //     };
 
-//     fetchSpaceXData();
-//   }, []);
+  //     fetchSpaceXData();
+  //   }, []);
 
-// console.log("prajjwal",data)
+  // console.log("prajjwal",data)
   const { capsules } = useContext(CapsuleContext);
 
-  const { selectedStatus, selectedType } = useContext(FiltersContext);
+  const { selectedStatus, selectedType, selectedDate } =
+    useContext(FiltersContext);
 
   return (
     <>
       <Header />
       <Hero />
+
+      <CapsuleDataTable
+        columns={columns}
+        data={
+          selectedStatus === "all" &&
+          selectedType === "all" &&
+          selectedDate === "all"
+            ? capsules
+            : capsules.filter((item) => {
+                return (
+                  (selectedStatus.includes(item.status) ||
+                    selectedStatus === "all") &&
+                  (selectedType.includes(item.type) ||
+                    selectedType === "all") &&
+                  (selectedDate.includes(item.original_launch) ||
+                    selectedDate === "all")
+                );
+              })
+        }
+      />
       <Capsules
         capsules={
           selectedStatus === "all"
@@ -54,20 +75,7 @@ export default function Home() {
               })
         }
       />
-      <CapsuleDataTable
-        columns={columns}
-        data={
-          selectedStatus === "all" && selectedType === "all"
-            ? capsules
-            : capsules.filter((item) => {
-                return (
-                  (selectedStatus.includes(item.status) ||
-                    selectedStatus === "all") &&
-                  (selectedType.includes(item.type) || selectedType === "all")
-                );
-              })
-        }
-      />
+      <Footer/>
     </>
   );
 }

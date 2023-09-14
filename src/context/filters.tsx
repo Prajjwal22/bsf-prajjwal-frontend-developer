@@ -18,6 +18,10 @@ export type CapsuleType = {
   type: string;
 };
 
+export type OriginalDate = {
+  original_launch: string;
+};
+
 type FiltersProviderProps = {
   children: ReactNode;
 };
@@ -31,6 +35,10 @@ export interface FiltersContenxtInterface {
   setTypeList: Dispatch<SetStateAction<CapsuleType[]>>;
   selectedType: string;
   setSelectedType: Dispatch<SetStateAction<string>>;
+  dateList: OriginalDate[];
+  setDateList: Dispatch<SetStateAction<OriginalDate[]>>;
+  selectedDate: string;
+  setSelectedDate: Dispatch<SetStateAction<string>>;
 }
 
 const defaultValue: FiltersContenxtInterface = {
@@ -42,6 +50,10 @@ const defaultValue: FiltersContenxtInterface = {
   setTypeList: () => {},
   selectedType: "",
   setSelectedType: () => {},
+  dateList: [],
+  setDateList: () => {},
+  selectedDate: "",
+  setSelectedDate: () => {},
 };
 
 export const FiltersContext = createContext(defaultValue);
@@ -51,6 +63,9 @@ export function FiltersProvider({ children }: FiltersProviderProps) {
   const [statusList, setStatusList] = useState<Status[]>([]);
   const [selectedType, setSelectedType] = useState<string>("all");
   const [typeList, setTypeList] = useState<CapsuleType[]>([]);
+
+  const [selectedDate, setSelectedDate] = useState<string>("all");
+  const [dateList, setDateList] = useState<OriginalDate[]>([]);
 
   useEffect(() => {
     const fetchFilters = async () => {
@@ -65,6 +80,11 @@ export function FiltersProvider({ children }: FiltersProviderProps) {
         ...new Set(res.map((item: Capsule) => item.type)),
       ] as CapsuleType[];
       setTypeList(uniqueTypes);
+
+      const uniqueDates = [
+        ...new Set(res.map((item: Capsule) => item.original_launch)),
+      ] as OriginalDate[];
+      setDateList(uniqueDates);
     };
 
     fetchFilters();
@@ -81,6 +101,11 @@ export function FiltersProvider({ children }: FiltersProviderProps) {
         setSelectedType,
         typeList,
         setTypeList,
+
+        setSelectedDate,
+        setDateList,
+        selectedDate,
+        dateList,
       }}
     >
       {children}

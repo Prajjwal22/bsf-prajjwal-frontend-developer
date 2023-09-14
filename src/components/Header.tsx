@@ -48,9 +48,9 @@ export default function Header() {
           </Link>
         </div>
         <ul className="hidden md:flex flex-row text-md gap-8 ml-auto">
-          <li className={`cursor-pointer `}>Home</li>
-          <li className={`cursor-pointer `}>Capsules</li>
-          <li className={`cursor-pointer `}>Data</li>
+        <li className={`cursor-pointer `}><Link href="/">Home</Link></li>
+          <li className={`cursor-pointer `}><Link href="/#capsule_data">Capsules Data</Link></li>
+          <li className={`cursor-pointer `}><Link href="/#capsule_grid">Capsules Grid</Link></li>
         </ul>
 
         {screenWidth < 770 ? (
